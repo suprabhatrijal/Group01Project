@@ -1,0 +1,4 @@
+CPU:{'Intel': 0, 'AMD': 0, 'ARM': 0, 'QUALCOMM': 0}
+GPU:{'NVIDIA': 0, 'AMD': 0, 'Intel': 0}
+PSU:{'EVGA': 0, 'Corsair': 0, 'CoolerMaster': 0, 'be quiet!': 0}
+Motherboard:{'Asrock': 0, 'ASUS': 0, 'MSI': 0, 'Gigabyte': 0}
