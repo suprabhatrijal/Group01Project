@@ -1,35 +1,36 @@
-#importing libraries
+# importing libraries
 import json
 import hashlib
 
 
-#Function for Creating users    
+# Function for Creating users
 def CreateUser():
-    print('*****************************')
-    print('*******User Creation*********')
-    print('*****************************\n')
-    CLogin = input("Please enter a login: ")
+    print("*****************************")
+    print("*******User Creation*********")
+    print("*****************************\n")
+    CLogin = input("Please enter a login: ").strip()
     password = input("Enter password: ")
     confpass = input("Confirm password: ")
     if confpass == password:
         encoder1 = confpass.encode()
         hashedU = hashlib.md5(encoder1).hexdigest()
-        with open("logins&hashedpasswords.txt", "w") as file:
-             file.write(CLogin + "\n")
-             file.write(hashedU)
+        with open("logins&hashedpasswords.txt", "a") as file:
+            file.write(CLogin + "\n")
+            file.write(hashedU)
         file.close()
         print("Thank you, You have sucessfully registered!")
         UserLogin()
     else:
         print("This password is not the same please try again! \n")
         CreateUser()
-        
-#Function for Logging in Users       
+
+
+# Function for Logging in Users
 def UserLogin():
-    print('*****************************')
-    print('*******User Login************')
-    print('*****************************\n')
-    CLogin = input("Please enter your login: ")
+    print("*****************************")
+    print("*******User Login************")
+    print("*****************************\n")
+    CLogin = input("Please enter your login: ").strip()
     password = input("Please enter your password: ")
     encoder2 = password.encode()
     hashedP = hashlib.md5(encoder2).hexdigest()
@@ -37,51 +38,43 @@ def UserLogin():
         stored_CLogin, stored_password = file.read().split("\n")
     file.close()
     if CLogin == stored_CLogin and hashedP == stored_password:
-         print("You have successfully logged in! \n")
+        print("You have successfully logged in! \n")
     else:
-         ask1 = int(input("Login failed, Would you like to try again, register, or quit? Press 0 to try again, 1 to register, or 7 to exit. \n"))
-         if ask1 == 0:
-             UserLogin()
-         elif ask1 == 1:
-             CreateUser()
-         else:
-             quit()
-             
-         
-#Funciton for asking the user if they are registered or not#         
+        ask1 = int(
+            input(
+                "Login failed, Would you like to try again, register, or quit? Press 0 to try again, 1 to register, or 7 to exit. \n"
+            )
+        )
+        if ask1 == 0:
+            UserLogin()
+        elif ask1 == 1:
+            CreateUser()
+        else:
+            quit()
+
+
+# Funciton for asking the user if they are registered or not#
 def AskUser():
     ask = input(" Are you a registered user? \n")
-    if (ask == "Yes" or ask == "yes" or ask == "y" or ask == "Y"):
+    if ask == "Yes" or ask == "yes" or ask == "y" or ask == "Y":
         UserLogin()
     else:
         CreateUser()
-        
-#First function call#
+
+
+# First function call#
 AskUser()
 
-#Creating variable for a Flag Controlled Loop#
+# Creating variable for a Flag Controlled Loop#
 Inv_Menu = True
 
 # Creating an inventory using a dictionary#
-inv = {"CPU":
-       {"Intel":12,
-        "AMD":14,
-        "ARM":19,
-        "QUALCOMM":11},
-       "GPU":
-       {"NVIDIA":30,
-        "AMD":50,
-        "Intel":190},
-       "PSU":
-       {"EVGA":168,
-        "Corsair":89,
-        "CoolerMaster":31,
-        "be quiet!":91},
-       "Motherboard":
-       {"Asrock":70,
-        "ASUS":80,
-        "MSI":90,
-        "Gigabyte":110}}
+inv = {
+    "CPU": {"Intel": 12, "AMD": 14, "ARM": 19, "QUALCOMM": 11},
+    "GPU": {"NVIDIA": 30, "AMD": 50, "Intel": 190},
+    "PSU": {"EVGA": 168, "Corsair": 89, "CoolerMaster": 31, "be quiet!": 91},
+    "Motherboard": {"Asrock": 70, "ASUS": 80, "MSI": 90, "Gigabyte": 110},
+}
 
 # Function for the Menu#
 def menuI():
@@ -96,15 +89,18 @@ def menuI():
         print(" 5. Print Report")
         print(" 6. Export Inv")
         print(" 7. Quit System \n")
-        print("Note: Our current sections for our inventory are CPU, GPU, PSU, and MOTHERBOARD \n")
+        print(
+            "Note: Our current sections for our inventory are CPU, GPU, PSU, and MOTHERBOARD \n"
+        )
         OPTION = int(input("Choose Option: "))
-        if OPTION not in range(1,8):
+        if OPTION not in range(1, 8):
             print("Option not valid, please try again")
         else:
             break
     return menuOptions(OPTION)
 
-#Function for taking in user input to choose the different inventory options#
+
+# Function for taking in user input to choose the different inventory options#
 def menuOptions(OPTION):
     if OPTION == 1:
         addInv()
@@ -121,7 +117,8 @@ def menuOptions(OPTION):
     elif OPTION == 7:
         exit()
 
-#Add to Inventory Function#
+
+# Add to Inventory Function#
 def addInv():
     print("Adding Inventory")
     print("**************** \n")
@@ -133,14 +130,14 @@ def addInv():
         print(item + ": " + str(inv[Cat][item]))
     else:
         print("You may not add to this Category/Item at this time")
-    OPTION = int(input('Enter 0 to continue or 7 to exit: '))
+    OPTION = int(input("Enter 0 to continue or 7 to exit: "))
     if OPTION == 0:
-            menuI()
+        menuI()
     else:
         exit()
 
 
-#Remove to Inventory Function#
+# Remove to Inventory Function#
 def removeInv():
     print("Removing Inventory")
     print("****************** \n")
@@ -151,14 +148,15 @@ def removeInv():
         inv[Cat][item] -= quantity
         print(item + ": " + str(inv[Cat][item]))
     else:
-        print("You may not removeto this Category/Item at this time"
-    OPTION = int(input('Operation Sucessful! Enter 0 to continue or 7 to exit: '))
+        print("You may not removeto this Category/Item at this time")
+    OPTION = int(input("Operation Sucessful! Enter 0 to continue or 7 to exit: "))
     if OPTION == 0:
-            menuI()
+        menuI()
     else:
         exit()
 
-#Update to Inventory Function#
+
+# Update to Inventory Function#
 def updateInv():
     print("Updating Inventory")
     print("****************** \n")
@@ -172,11 +170,12 @@ def updateInv():
         print("That item is not in our inventory\n")
     OPTION = int(input("Enter 0 to continue or 7 to exit: \n"))
     if OPTION == 0:
-            menuI()
+        menuI()
     else:
         exit()
-        
-#Search Inventory Function#
+
+
+# Search Inventory Function#
 def searchInv():
     print("Searching Inventory")
     print("******************* \n")
@@ -184,41 +183,48 @@ def searchInv():
     item = input("Enter the type of the item: ")
     if Cat in inv:
         if item in inv[Cat]:
-          print("This item is in our inventory and there are " +  str(inv[Cat][item]) + '\n')
+            print(
+                "This item is in our inventory and there are "
+                + str(inv[Cat][item])
+                + "\n"
+            )
         elif item not in inv[Cat]:
-          print("That item is not in the inventory \n")
+            print("That item is not in the inventory \n")
     else:
         print("This Category is not available, please pick another category \n")
         searchInv()
     OPTION = int(input("Enter 0 to continue or 7 to exit: "))
     if OPTION == 0:
-            menuI()
+        menuI()
     else:
         exit()
-        
-#Print Inventory Function#      
+
+
+# Print Inventory Function#
 def printInv():
     print("Current Inventory")
     print("*****************\n")
     for category, items in inv.items():
-      print(category, items)
+        print(category, items)
     OPTION = int(input("Operation Sucessful! Enter 0 to continue or 7 to exit: "))
     if OPTION == 0:
-            menuI()
+        menuI()
     else:
         exit()
 
-#Export Inventory to txt file Function#
+
+# Export Inventory to txt file Function#
 def exportInv():
     print("Check the root folder for your export")
     with open("inventory.txt", "w") as a:
-        for key, value in inv.items(): 
-            a.write('%s:%s\n' % (key, value))
+        for key, value in inv.items():
+            a.write("%s:%s\n" % (key, value))
     OPTION = int(input("Operation Sucessful! Enter 0 to continue or 7 to exit: "))
     if OPTION == 0:
-            menuI()
+        menuI()
     else:
         exit()
 
-#Function Calling Menu
+
+# Function Calling Menu
 menuI()
