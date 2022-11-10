@@ -1,14 +1,12 @@
 import copy
-from InventoryClasses import Inventory, Item
-from UserClasses import Users, User
+from classes.InventoryClasses import Inventory, Item
+from classes.UserClasses import Users
 from os import system, name
 
 
-# define our clear function
-
-inventory_database = "inventory_database.db"
-users_database = "user_database.db"
-sales_database = "sales_database.db"
+inventory_database = "./databases/inventory_database.db"
+users_database = "./databases/user_database.db"
+sales_database = "./databases/sales_database.db"
 
 
 with open(sales_database) as saleFile:
